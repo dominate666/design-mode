@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="open">打开电视</button>
+    <button id="close">关闭电视</button>
+  </body>
+</html>
+<script>
+  let tv = {
+    open: function () {
+      console.log("打开");
+    },
+    close: function () {
+      console.log("关闭");
+    },
+  };
+
+  let createcommand = function (receiver) {
+    let execute = function () {
+      return receiver.open();
+    };
+    let undo = function () {
+      return receiver.close();
+    };
+    return {
+      execute,
+      undo,
+    };
+  };
+
+  let setcommand = function (command) {
+    document.getElementById("open").onclick = function () {
+      command.execute();
+    };
+    document.getElementById("close").onclick = function () {
+      command.undo();
+    };
+  };
+
+  setcommand(createcommand(tv));
+</script>
